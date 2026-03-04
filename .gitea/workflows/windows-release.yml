@@ -21,7 +21,7 @@ jobs:
         run: .\scripts\build_release.ps1
 
       - name: Upload Artifacts (Gitea Actions)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ffmpeg-converter-windows
           path: |
