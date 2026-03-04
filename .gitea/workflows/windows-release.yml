@@ -10,7 +10,7 @@ jobs:
   build_and_release:
     runs-on: [self-hosted, windows]
     env:
-      GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+      GITEA_TOKEN: ${{ gitea.token }}
 
     steps:
       - name: Checkout
