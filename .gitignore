@@ -31,7 +31,6 @@ Desktop.ini
 
 # Local app/project runtime state
 config.json
-docs/screenshots/*.png
 
 # Keep placeholders
 !docs/screenshots/*.placeholder.txt

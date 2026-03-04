@@ -1,4 +1,7 @@
 ﻿# FFmpeg Converter / FFmpeg Konverter (Windows 11, PySide6)
+[![Windows Build and Release](https://github.com/Elektrofussel/FFMPEG-Konverter/actions/workflows/windows-release.yml/badge.svg)](https://github.com/Elektrofussel/FFMPEG-Konverter/actions/workflows/windows-release.yml)
+[![GitHub release](https://img.shields.io/github/v/release/Elektrofussel/FFMPEG-Konverter)](https://github.com/Elektrofussel/FFMPEG-Konverter/releases)
+
 
 EN: Desktop GUI to analyze and batch-convert media files with `ffmpeg`/`ffprobe`.
 
@@ -278,34 +281,21 @@ DE:
 ## 9) Screenshots / Bildschirmbilder
 
 EN:
-- You can add your own screenshots to a folder, e.g. `docs/screenshots/`.
-- Recommended screenshots:
-  - `01_source_media.png` (tab 1: source/target, scan, file table)
-  - `02_conversion.png` (tab 2: export settings, presets, AMF/NVENC/QSV)
-  - `03_summary.png` (tab 3: summary, conflict warning, size estimate, start/stop)
-  - `04_progress_log.png` (tab 4: file/global progress, log)
-  - `05_hardware_codecs.png` (tab 5: runtime checks, auto-preset tools)
-- If your repository host supports markdown images, use:
-  - `![Source & Media](docs/screenshots/01_source_media.png)`
-  - `![Conversion](docs/screenshots/02_conversion.png)`
-  - `![Summary](docs/screenshots/03_summary.png)`
-  - `![Progress & Log](docs/screenshots/04_progress_log.png)`
-  - `![Hardware & Codecs](docs/screenshots/05_hardware_codecs.png)`
+- Included screenshots:
+  - `docs/screenshots/01_source_media.png`
+  - `docs/screenshots/02_conversion.png`
+  - `docs/screenshots/03_summary.png`
+  - `docs/screenshots/04_progress_log.png`
+  - `docs/screenshots/05_hardware_codecs.png`
+
+![Source & Media](docs/screenshots/01_source_media.png)
+![Conversion](docs/screenshots/02_conversion.png)
+![Summary](docs/screenshots/03_summary.png)
+![Progress & Log](docs/screenshots/04_progress_log.png)
+![Hardware & Codecs](docs/screenshots/05_hardware_codecs.png)
 
 DE:
-- Du kannst eigene Screenshots in einem Ordner speichern, z. B. `docs/screenshots/`.
-- Empfohlene Screenshots:
-  - `01_source_media.png` (Tab 1: Quelle/Ziel, Scan, Dateitabelle)
-  - `02_conversion.png` (Tab 2: Exporteinstellungen, Presets, AMF/NVENC/QSV)
-  - `03_summary.png` (Tab 3: Zusammenfassung, Konfliktwarnung, Größenschätzung, Start/Stopp)
-  - `04_progress_log.png` (Tab 4: Datei-/Gesamtfortschritt, Log)
-  - `05_hardware_codecs.png` (Tab 5: Runtime-Checks, Auto-Preset-Werkzeuge)
-- Wenn dein Repository Markdown-Bilder unterstützt, nutze:
-  - `![Quelle & Medien](docs/screenshots/01_source_media.png)`
-  - `![Konvertierung](docs/screenshots/02_conversion.png)`
-  - `![Zusammenfassung](docs/screenshots/03_summary.png)`
-  - `![Fortschritt & Log](docs/screenshots/04_progress_log.png)`
-  - `![Hardware & Codecs](docs/screenshots/05_hardware_codecs.png)`
+- Screenshots sind enthalten unter `docs/screenshots/` und werden oben direkt eingeblendet.
 
 ## 10) Example Workflows / Beispiel-Workflows
 
@@ -487,6 +477,7 @@ DE:
 - `LICENSE` - MIT license
 - `THIRD_PARTY_NOTICES.md` - third-party licenses/links and notices
 - `RELEASE_CHECKLIST.md` - practical release checklist
+- `SECURITY.md` - token/secrets handling notes
 - `README.md` - this document
 
 ## 16) License / Lizenz
@@ -500,3 +491,5 @@ DE:
 - Dieses Projekt steht unter der MIT-Lizenz. Siehe `LICENSE`.
 - Drittanbieter-Komponenten (z. B. FFmpeg/Qt) haben eigene Lizenzbedingungen.
   Siehe `THIRD_PARTY_NOTICES.md`.
+
+
