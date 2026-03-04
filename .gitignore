@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+.python-version
+.venv/
+venv/
+
+# Build artifacts
+build/
+dist/
+dist-installer/
+*.spec.bak
+
+# PyInstaller temp
+*.manifest
+*.pkg
+
+# Logs / temp
+*.log
+*.tmp
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Local app/project runtime state
+config.json
+docs/screenshots/*.png
+
+# Keep placeholders
+!docs/screenshots/*.placeholder.txt
