@@ -1,0 +1,89 @@
+name: Gitea Windows Build and Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build_and_release:
+    runs-on: [self-hosted, windows]
+    env:
+      GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build EXE + Installer + ZIP
+        shell: powershell
+        run: .\scripts\build_release.ps1
+
+      - name: Upload Artifacts (Gitea Actions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-converter-windows
+          path: |
+            dist/FFmpegConverter/**
+            dist-installer/*.exe
+            dist-installer/*.zip
+
+      - name: Create/Update Gitea Release and Upload Assets
+        if: startsWith(gitea.ref, 'refs/tags/v')
+        shell: powershell
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:GITEA_TOKEN)) {
+            throw "Missing secret GITEA_TOKEN."
+          }
+
+          $ErrorActionPreference = "Stop"
+          $tag = "${{ gitea.ref_name }}"
+          $repo = "${{ gitea.repository }}"
+          $server = "${{ gitea.server_url }}"
+          $sha = "${{ gitea.sha }}"
+          $apiBase = "$server/api/v1/repos/$repo"
+          $headers = @{ Authorization = "token $env:GITEA_TOKEN" }
+
+          # Get existing release by tag if present, else create one.
+          $release = $null
+          try {
+            $release = Invoke-RestMethod -Method Get -Headers $headers -Uri "$apiBase/releases/tags/$tag"
+          } catch {
+            $body = @{
+              tag_name = $tag
+              target_commitish = $sha
+              name = $tag
+              draft = $false
+              prerelease = $false
+            } | ConvertTo-Json
+            $release = Invoke-RestMethod -Method Post -Headers $headers -Uri "$apiBase/releases" -ContentType "application/json" -Body $body
+          }
+
+          if (-not $release -or -not $release.id) {
+            throw "Could not determine release id."
+          }
+
+          # Build existing asset name set to avoid duplicate upload failures.
+          $existingNames = @{}
+          try {
+            $assets = Invoke-RestMethod -Method Get -Headers $headers -Uri "$apiBase/releases/$($release.id)/assets"
+            foreach ($a in $assets) { $existingNames[$a.name] = $true }
+          } catch {
+            # If listing fails, continue and attempt upload.
+          }
+
+          $files = Get-ChildItem ".\dist-installer" -File | Where-Object { $_.Extension -in @(".exe", ".zip") }
+          if (-not $files) {
+            throw "No release files found in dist-installer."
+          }
+
+          foreach ($f in $files) {
+            if ($existingNames.ContainsKey($f.Name)) {
+              Write-Host "Asset already exists, skipping: $($f.Name)"
+              continue
+            }
+            $assetUrl = "$apiBase/releases/$($release.id)/assets?name=$([uri]::EscapeDataString($f.Name))"
+            Write-Host "Uploading asset: $($f.Name)"
+            Invoke-RestMethod -Method Post -Headers $headers -Uri $assetUrl -InFile $f.FullName -ContentType "application/octet-stream"
+          }
